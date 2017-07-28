@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     if @user.save
       flash[:notice] = "You signed up successfully"
       log_in(@user)
+      WelcomeMailer.welcome_email(@user).deliver_now
       redirect_to root_path
     else
       flash[:notice] = "Form is invalid"
