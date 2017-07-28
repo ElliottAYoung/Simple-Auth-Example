@@ -25,7 +25,7 @@ Rails.application.configure do
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  # config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -77,11 +77,19 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.action_mailer.default_url_options = { :host => 'http://ec2-34-213-53-185.us-west-2.compute.amazonaws.com' }
+  Rails.application.routes.default_url_options[:host] = 'http://ec2-34-213-53-185.us-west-2.compute.amazonaws.com'
+
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
    :address              => "smtp.gmail.com",
    :port                 => 587,
+   :domain               => 'smtp.gmail.com',
    :user_name            => ENV['GMAIL_SAMPLE_EMAIL'],
    :password             => ENV['GMAIL_SAMPLE_PASSWORD'],
    :authentication       => "plain",
